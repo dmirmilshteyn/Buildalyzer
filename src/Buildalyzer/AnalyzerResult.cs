@@ -147,7 +147,8 @@ namespace Buildalyzer
                 if (parts[c].Length > 0)
                 {
                     int valueStart = 0;
-                    if (parts[c][0] == '/')
+                    // Attempt to differentiate between unix-like absolute paths (/path/to/file) and csc arguments by testing if the file exists on disk
+                    if (parts[c][0] == '/' && !File.Exists(parts[c]))
                     {
                         valueStart = parts[c].IndexOf(':');
                         if (valueStart == -1 || valueStart >= parts[c].Length - 1)
